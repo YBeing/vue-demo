@@ -17,7 +17,7 @@
             <el-menu-item index="1-2">选项二</el-menu-item>
           </el-menu-item-group>
 
-            <el-menu-item index="1-3">选项三</el-menu-item>
+            <el-menu-item index="1-3">选项四</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 
