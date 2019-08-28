@@ -1,6 +1,6 @@
 <template>
 <!--  <div id="i1">-->
-    <el-container v-bind:style="{width:'100%',height:'900px', margin:'0px',padding:'0px',backgroundColor:'#545c64' }">
+    <el-container  v-bind:style="{width:'100%',height:'900px', margin:'0px',padding:'0px',backgroundColor:'#545c64' }">
       <el-header v-bind:style="{width:'100%',backgroundColor:'#545c64' }">
 
         <el-menu
