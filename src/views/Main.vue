@@ -52,7 +52,7 @@
             </el-submenu>
             <el-menu-item index="2">
               <i class="el-icon-menu"></i>
-              <span slot="title">导航二</span>
+              <span slot="title" @click="getDatas">导航二</span>
             </el-menu-item>
             <el-menu-item index="3">
               <i class="el-icon-setting"></i>
@@ -161,6 +161,14 @@
       },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
+      },
+      getDatas() {
+        this.$ajax.get('http://localhost:8080/hello').then( res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+        // alert(1)
       }
     }
   }
