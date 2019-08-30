@@ -2,11 +2,12 @@
     <div>
       <el-container>
         <el-header >
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-            <el-menu-item index="1">处理中心</el-menu-item>
-            <el-submenu index="2">
-              <template slot="title">我的工作台</template>
-              <el-menu-item index="2-1">选项1</el-menu-item>
+          <el-menu   class="el-menu-demo" mode="horizontal" >
+            <el-submenu index="2" >
+              <template slot="title"  icon="el-icon-service" >admin</template>
+              <el-menu-item index="2-2">登录状态</el-menu-item>
+              <el-menu-item index="2-3">用户信息</el-menu-item>
+              <!--<el-menu-item index="2-1">选项1</el-menu-item>
               <el-menu-item index="2-2">选项2</el-menu-item>
               <el-menu-item index="2-3">选项3</el-menu-item>
               <el-submenu index="2-4">
@@ -14,16 +15,19 @@
                 <el-menu-item index="2-4-1">选项1</el-menu-item>
                 <el-menu-item index="2-4-2">选项2</el-menu-item>
                 <el-menu-item index="2-4-3">选项3</el-menu-item>
-              </el-submenu>
+              </el-submenu>-->
             </el-submenu>
-            <el-menu-item index="3" disabled>消息中心</el-menu-item>
-            <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+            <el-menu-item index="3" ><a class="el-icon-message">消息中心</a></el-menu-item>
+
+            <el-menu-item  index="1" @click="dialogVisible = true"><a class="el-icon-phone-outline">注销</a></el-menu-item>
+
           </el-menu>
+
         </el-header>
         <el-container>
           <el-aside width="400px">
             <el-col :span="12">
-              <h5>默认颜色</h5>
+              <h5 style="padding-left: 30px">功能菜单</h5>
               <el-menu
                 default-active="2"
                 class="el-menu-vertical-demo"
@@ -76,13 +80,39 @@
           </el-main>
         </el-container>
       </el-container>
-
+      <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :before-close="handleClose">
+        <span>这是一段信息</span>
+        <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            </span>
+      </el-dialog>
     </div>
 </template>
 
 <script>
     export default {
-        name: "MainNav"
+        name: "MainNav",
+        data(){
+          return {
+            dialogVisible: false
+          };
+        },
+        methods:{
+          handleSelect(key, keyPath) {
+            console.log(key, keyPath);
+          },
+          handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+          },
+          handleClose(key, keyPath) {
+            console.log(key, keyPath);
+          }
+        }
     }
 </script>
 
@@ -95,26 +125,21 @@
     margin: 0;
   }
 
-  .el-carousel__item:nth-child(1n) {
-    /*background-color: red;*/
-    /*background: url("../assets/images/beverage-blurred-background-breakfast-2410571.jpg");*/
-  }
 
-  .el-carousel__item:nth-child(3n) {
-    /*background-color: #d3dce6;*/
-    /*background: url("../assets/images/beverage-blurred-background-breakfast-2410571.jpg");*/
-
-  }
   #i1{
-    background: url("../assets/images/beverage-blurred-background-breakfast-2410571.jpg");
+    background: url("../assets/images/beautiful-blue-christmas-2011367.jpg");
+
   }
   #i2{
-    background: url("../assets/images/120mm-120mm-film-analog-photography-2823132.jpg");
+    background: url("../assets/images/astrophotography-background-dark-746393.jpg");
   }
   #i3{
-    background: url("../assets/images/architecture-building-business-2225380.jpg");
+    background: url("../assets/images/coast-island-mountain-2821285.jpg");
   }
   .el-menu-demo{
-    padding-left: 400px;
+    padding-left: 1100px;
+  }
+  .el-icon-message{
+    margin-right: 80px;
   }
 </style>

@@ -81,9 +81,13 @@
       login() {
            let user= this.ruleForm2.user;
            let password=this.ruleForm2.pass;
-           alert(password);
            this.$ajax.get('http://localhost:9080/login?username='+user+"&&password="+password).then( res => {
               alert(res.data);
+              if(res.data=="登录失败！"){
+
+              }else{
+                this.$router.push("/mainNav");
+              }
               console.log(res.data)
            }).catch(err => {
               console.log(err)
