@@ -12,6 +12,7 @@
 
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm3')">提交</el-button>
+          <el-button  @click="login()">测试</el-button>
           <el-button @click="resetForm('ruleForm3')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -76,6 +77,19 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      login() {
+           let user= this.ruleForm2.user;
+           let password=this.ruleForm2.pass;
+           alert(password);
+           this.$ajax.get('http://localhost:9080/login?username='+user+"&&password="+password).then( res => {
+              alert(res.data);
+              console.log(res.data)
+           }).catch(err => {
+              console.log(err)
+           })
+
+        // this.$refs[formName].resetFields();
       }
     }
   }

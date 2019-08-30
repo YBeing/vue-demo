@@ -14,6 +14,7 @@ import Table from '../views/tabs/Table'
 Vue.use(Router)
 
 export default new Router({
+  mode:'history',
   routes: [
 
     {
@@ -30,7 +31,7 @@ export default new Router({
       name: 'Main',
       // 配置嵌套路由
       children: [
-        {path: '/tabs/input', component: Input},
+        {path: 'tabs/input', component: Input},
       ]
 
     }, {

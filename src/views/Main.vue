@@ -48,6 +48,7 @@
               <el-submenu index="1-4">
                 <template slot="title">选项4</template>
                 <el-menu-item index="1-4-1">选项1</el-menu-item>
+                <router-link to="/user/profile">点击我跳转</router-link>
               </el-submenu>
             </el-submenu>
             <el-menu-item index="2">
@@ -163,7 +164,8 @@
         console.log(key, keyPath);
       },
       getDatas() {
-        this.$ajax.get('http://localhost:8080/hello').then( res => {
+        this.$ajax.get('http://localhost:9080/hello').then( res => {
+          alert(res);
           console.log(res)
         }).catch(err => {
           console.log(err)
