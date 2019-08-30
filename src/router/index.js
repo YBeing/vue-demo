@@ -5,6 +5,7 @@ import  LoginPro from  '../views/LoginPro'
 import  Main from  '../views/Main'
 import  Input from  '../views/tabs/Input'
 import  MainPro from  '../views/MainPro'
+import MainNav from  '../views/MainNav'
 // 用于嵌套的路由组件
 import UserProfile from '../views/user/Profile'
 import UserList from '../views/user/List'
@@ -42,6 +43,10 @@ export default new Router({
         {path:'tabs/table',component:Table}
       ]
 
+    }, {
+      path: '/mainNav',
+      component: MainNav,
+      name: 'MainNav',
 
 
     }
