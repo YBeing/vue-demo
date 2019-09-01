@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import  Login from  '../views/Login'
 import  LoginPro from  '../views/LoginPro'
-import  Main from  '../views/Main'
 import  Input from  '../views/tabs/Input'
 import  MainPro from  '../views/MainPro'
 import MainNav from  '../views/MainNav'
@@ -10,6 +9,7 @@ import MainNav from  '../views/MainNav'
 import UserProfile from '../views/user/Profile'
 import UserList from '../views/user/List'
 import Table from '../views/tabs/Table'
+import MenuTree from '../views/tabs/MenuTree'
 
 
 Vue.use(Router)
@@ -26,16 +26,7 @@ export default new Router({
       path: '/loginPro',
       component: LoginPro,
       name: 'LoginPro',
-    }, {
-      path: '/main',
-      component: Main,
-      name: 'Main',
-      // 配置嵌套路由
-      children: [
-        {path: 'tabs/input', component: Input},
-      ]
-
-    }, {
+    },  {
       path: '/mainPro',
       component: MainPro,
       name: 'MainPro',
@@ -47,6 +38,9 @@ export default new Router({
       path: '/mainNav',
       component: MainNav,
       name: 'MainNav',
+     /* children:[
+        {path:'/tabs/menuTree',component:MenuTree}
+      ]*/
 
 
     }

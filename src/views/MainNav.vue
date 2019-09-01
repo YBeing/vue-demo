@@ -29,21 +29,18 @@
             <el-col :span="12">
               <h5 style="padding-left: 30px">功能菜单</h5>
               <el-menu
-                default-active="2"
+                default-active="1"
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose">
                 <el-submenu index="1">
                   <template slot="title">
                     <i class="el-icon-location"></i>
-                    <span>导航一</span>
+                    <span>系统管理</span>
                   </template>
                   <el-menu-item-group>
-                    <template slot="title">分组一</template>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
+                    <el-menu-item index="1-2" @click="addTab(editableTabsValue2)" >菜单管理</el-menu-item>
                   </el-menu-item-group>
-                  <el-menu-item-group title="分组2">
                     <el-menu-item index="1-3">选项3</el-menu-item>
                   </el-menu-item-group>
                   <el-submenu index="1-4">
@@ -55,7 +52,7 @@
                   <i class="el-icon-menu"></i>
                   <span slot="title">导航二</span>
                 </el-menu-item>
-                <el-menu-item index="3" disabled>
+                <el-menu-item index="3" >
                   <i class="el-icon-document"></i>
                   <span slot="title">导航三</span>
                 </el-menu-item>
@@ -67,16 +64,36 @@
             </el-col>
           </el-aside>
           <el-main>
-            <el-carousel :interval="4000" type="card" height="200px">
-             <!-- <el-carousel-item v-for="item in 6" :key="item">
-              </el-carousel-item>-->
+            <!--<el-carousel :interval="4000" type="card" height="200px">
+             &lt;!&ndash; <el-carousel-item v-for="item in 6" :key="item">
+              </el-carousel-item>&ndash;&gt;
               <el-carousel-item id="i1">
               </el-carousel-item>
               <el-carousel-item id="i2">
               </el-carousel-item>
               <el-carousel-item id="i3">
               </el-carousel-item>
-            </el-carousel>
+            </el-carousel>-->
+            <!--<el-tabs v-model="editableTabsValue2" type="card" closable @tab-remove="removeTab">
+              &lt;!&ndash;<el-tab-pane
+                v-for="(item, index) in editableTabs2"
+                :key="item.name"
+                :label="item.title"
+                :name="item.name"
+              >
+                {{item.content}}
+              </el-tab-pane>&ndash;&gt;
+              <el-tab-pane>
+                <tree></tree>
+
+              </el-tab-pane>
+            </el-tabs>-->
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="首页" name="first" :key="'first'">
+                <carous></carous>
+              </el-tab-pane>
+
+            </el-tabs>
           </el-main>
         </el-container>
       </el-container>
@@ -91,15 +108,36 @@
               <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
             </span>
       </el-dialog>
+
+
+
+
     </div>
 </template>
 
 <script>
+    import  MenuTree from '../views/tabs/MenuTree'
+    import  Carousel from '../views/tabs/Carousel'
     export default {
         name: "MainNav",
+        components:{
+          tree:MenuTree,
+          carous:Carousel
+        },
         data(){
           return {
-            dialogVisible: false
+            dialogVisible: false,
+            editableTabsValue2: '1',
+            editableTabs2: [
+              {
+                title: 'Tab 1',
+                name: '1',
+                content: 'Tab 1 content'
+              }
+            ],
+            tabIndex: 1,
+            activeName: "first",
+
           };
         },
         methods:{
@@ -111,8 +149,36 @@
           },
           handleClose(key, keyPath) {
             console.log(key, keyPath);
+          },
+          addTab(targetName) {
+            // alert(targetName);
+            let newTabName = ++this.tabIndex + '';
+            this.editableTabs2.push({
+              title: 'New Tab',
+              name: newTabName,
+              content: 'New Tab content'
+            });
+            this.editableTabsValue2 = newTabName;
+          },
+          removeTab(targetName) {
+            let tabs = this.editableTabs2;
+            let activeName = this.editableTabsValue2;
+            if (activeName === targetName) {
+              tabs.forEach((tab, index) => {
+                if (tab.name === targetName) {
+                  let nextTab = tabs[index + 1] || tabs[index - 1];
+                  if (nextTab) {
+                    activeName = nextTab.name;
+                  }
+                }
+              });
+            }
+
+            this.editableTabsValue2 = activeName;
+            this.editableTabs2 = tabs.filter(tab => tab.name !== targetName);
           }
-        }
+        },
+
     }
 </script>
 
