@@ -91,6 +91,7 @@
     import  Carousel from '../views/tabs/Carousel'
     import  Form from '../views/tabs/Form'
     import  Table from '../views/tabs/Table'
+    import List from '../views/user/List'
     export default {
         name: "MainNav",
         components:{
@@ -124,7 +125,7 @@
           addTab(name) {
             let  component=null;
             if(name=="用户管理"){
-              component=MenuTree;
+              component=List;
             }
             if(name=="菜单管理"){
               component=Form;
