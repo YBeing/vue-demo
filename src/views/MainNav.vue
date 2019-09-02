@@ -15,9 +15,9 @@
           </el-menu>
 
         </el-header>
-        <el-container>
-          <el-aside width="400px">
-            <el-col :span="12">
+        <el-container >
+          <el-aside  width="200px">
+<!--            <el-col :span="12">-->
               <h5 style="padding-left: 30px">功能菜单</h5>
               <el-menu
                 default-active="1"
@@ -52,19 +52,20 @@
                   </el-submenu>
                 </el-submenu>
               </el-menu>
-            </el-col>
+<!--            </el-col>-->
           </el-aside>
           <el-main>
-            <el-tabs v-model="activeName" closable  @tab-remove="removeTab">
-              <el-tab-pane
-                v-for="(item, index) in editableTabs2"
-                :key="item.name"
-                :label="item.title"
-                :name="item.name"
-              >
-                <component :is="item.content"></component>
-              </el-tab-pane>
-            </el-tabs>
+
+              <el-tabs v-model="activeName" closable  @tab-remove="removeTab">
+                <el-tab-pane
+                  v-for="(item, index) in editableTabs2"
+                  :key="item.name"
+                  :label="item.title"
+                  :name="item.name"
+                >
+                  <component :is="item.content"></component>
+                </el-tab-pane>
+              </el-tabs>
           </el-main>
         </el-container>
       </el-container>
