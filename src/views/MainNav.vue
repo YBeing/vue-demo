@@ -7,15 +7,6 @@
               <template slot="title"  icon="el-icon-service" >admin</template>
               <el-menu-item index="2-2">登录状态</el-menu-item>
               <el-menu-item index="2-3">用户信息</el-menu-item>
-              <!--<el-menu-item index="2-1">选项1</el-menu-item>
-              <el-menu-item index="2-2">选项2</el-menu-item>
-              <el-menu-item index="2-3">选项3</el-menu-item>
-              <el-submenu index="2-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="2-4-1">选项1</el-menu-item>
-                <el-menu-item index="2-4-2">选项2</el-menu-item>
-                <el-menu-item index="2-4-3">选项3</el-menu-item>
-              </el-submenu>-->
             </el-submenu>
             <el-menu-item index="3" ><a class="el-icon-message">消息中心</a></el-menu-item>
 
@@ -33,79 +24,59 @@
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose">
-                <el-submenu index="1">
-                  <template slot="title">
-                    <i class="el-icon-location"></i>
-                    <span>系统管理</span>
-                  </template>
-                  <el-menu-item-group>
-                    <el-menu-item index="1-2" @click="addTab(editableTabsValue2)" >菜单管理</el-menu-item>
-                  </el-menu-item-group>
-                    <el-menu-item index="1-3">选项3</el-menu-item>
-                  </el-menu-item-group>
-                  <el-submenu index="1-4">
-                    <template slot="title">选项4</template>
-                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                  </el-submenu>
-                </el-submenu>
                 <el-menu-item index="2">
                   <i class="el-icon-menu"></i>
-                  <span slot="title">导航二</span>
+                  <span slot="title">导航一</span>
                 </el-menu-item>
                 <el-menu-item index="3" >
                   <i class="el-icon-document"></i>
-                  <span slot="title">导航三</span>
+                  <span slot="title">导航二</span>
                 </el-menu-item>
                 <el-menu-item index="4">
-                  <i class="el-icon-setting"></i>
-                  <span slot="title">导航四</span>
+                  <i class="el-icon-location"></i>
+                  <span slot="title">导航三</span>
                 </el-menu-item>
+                <el-submenu index="1">
+                  <template slot="title">
+                    <i class="el-icon-setting"></i>
+                    <span>系统管理</span>
+                  </template>
+                  <el-menu-item-group>
+                    <el-menu-item index="1-2" @click="addTab('菜单管理')" >菜单管理</el-menu-item>
+                  </el-menu-item-group>
+                  <el-menu-item index="1-3" @click="addTab('用户管理')">用户管理</el-menu-item>
+                  </el-menu-item-group>
+                  <el-submenu index="1-4">
+                    <template slot="title">消息管理</template>
+                    <el-menu-item index="1-4-1" @click="addTab('消息设置')">消息设置</el-menu-item>
+                  </el-submenu>
+                </el-submenu>
               </el-menu>
             </el-col>
           </el-aside>
           <el-main>
-            <!--<el-carousel :interval="4000" type="card" height="200px">
-             &lt;!&ndash; <el-carousel-item v-for="item in 6" :key="item">
-              </el-carousel-item>&ndash;&gt;
-              <el-carousel-item id="i1">
-              </el-carousel-item>
-              <el-carousel-item id="i2">
-              </el-carousel-item>
-              <el-carousel-item id="i3">
-              </el-carousel-item>
-            </el-carousel>-->
-            <!--<el-tabs v-model="editableTabsValue2" type="card" closable @tab-remove="removeTab">
-              &lt;!&ndash;<el-tab-pane
+            <el-tabs v-model="activeName" closable  @tab-remove="removeTab">
+              <el-tab-pane
                 v-for="(item, index) in editableTabs2"
                 :key="item.name"
                 :label="item.title"
                 :name="item.name"
               >
-                {{item.content}}
-              </el-tab-pane>&ndash;&gt;
-              <el-tab-pane>
-                <tree></tree>
-
+                <component :is="item.content"></component>
               </el-tab-pane>
-            </el-tabs>-->
-            <el-tabs v-model="activeName">
-              <el-tab-pane label="首页" name="first" :key="'first'">
-                <carous></carous>
-              </el-tab-pane>
-
             </el-tabs>
           </el-main>
         </el-container>
       </el-container>
       <el-dialog
-        title="提示"
+        title="注销"
         :visible.sync="dialogVisible"
         width="30%"
         :before-close="handleClose">
-        <span>这是一段信息</span>
+        <span>确定要注销登录吗?</span>
         <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+              <el-button type="primary" @click="loginout">确 定</el-button>
             </span>
       </el-dialog>
 
@@ -118,6 +89,8 @@
 <script>
     import  MenuTree from '../views/tabs/MenuTree'
     import  Carousel from '../views/tabs/Carousel'
+    import  Form from '../views/tabs/Form'
+    import  Table from '../views/tabs/Table'
     export default {
         name: "MainNav",
         components:{
@@ -127,16 +100,14 @@
         data(){
           return {
             dialogVisible: false,
-            editableTabsValue2: '1',
             editableTabs2: [
               {
-                title: 'Tab 1',
-                name: '1',
-                content: 'Tab 1 content'
+                title: '首页',
+                name: 'index',
+                content: Carousel
               }
             ],
-            tabIndex: 1,
-            activeName: "first",
+            activeName: "index",
 
           };
         },
@@ -150,19 +121,38 @@
           handleClose(key, keyPath) {
             console.log(key, keyPath);
           },
-          addTab(targetName) {
-            // alert(targetName);
-            let newTabName = ++this.tabIndex + '';
-            this.editableTabs2.push({
-              title: 'New Tab',
-              name: newTabName,
-              content: 'New Tab content'
-            });
-            this.editableTabsValue2 = newTabName;
+          addTab(name) {
+            let  component=null;
+            if(name=="用户管理"){
+              component=MenuTree;
+            }
+            if(name=="菜单管理"){
+              component=Form;
+            }
+            if(name=="消息设置"){
+              component=Table;
+            }
+            let tabs = this.editableTabs2;
+            let addFlag=true;
+            if (tabs.length>1){
+              tabs.forEach((tab, index) => {
+                if(tab.name==name){
+                  addFlag=false;
+                }
+              });
+            }
+            if(addFlag){
+              this.editableTabs2.push({
+                title: name,
+                name: name,
+                content: component,
+              });
+              this.activeName = name;
+            }
           },
           removeTab(targetName) {
             let tabs = this.editableTabs2;
-            let activeName = this.editableTabsValue2;
+            let activeName = this.activeName;
             if (activeName === targetName) {
               tabs.forEach((tab, index) => {
                 if (tab.name === targetName) {
@@ -174,8 +164,11 @@
               });
             }
 
-            this.editableTabsValue2 = activeName;
+            this.activeName=activeName;
             this.editableTabs2 = tabs.filter(tab => tab.name !== targetName);
+          },
+          loginout(){
+
           }
         },
 
