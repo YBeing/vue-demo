@@ -1,6 +1,6 @@
 <template>
-  <div class="myloginbox">
-    <el-container>
+<!--  <div class="myloginbox">-->
+    <el-container class="mybody">
       <el-form ref="ruleForm3" :model="ruleForm2" status-icon :rules="rules2"  label-width="100px" class="demo-ruleForm" size="mini">
         <el-form-item  label="账号" prop="user" class="a1">
           <el-input v-model="ruleForm2.user" ></el-input>
@@ -11,13 +11,14 @@
 
 
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm3')">提交</el-button>
-          <el-button  @click="login()">测试</el-button>
+<!--          <el-button type="primary" @click="submitForm('ruleForm3')">提交</el-button>-->
+          <el-button type="primary" @click="login()">登录</el-button>
+<!--          <el-button  @click="login()">登录</el-button>-->
           <el-button @click="resetForm('ruleForm3')">重置</el-button>
         </el-form-item>
       </el-form>
     </el-container>
-  </div>
+<!--  </div>-->
 </template>
 
 <script>
@@ -82,9 +83,8 @@
            let user= this.ruleForm2.user;
            let password=this.ruleForm2.pass;
            this.$ajax.get('http://localhost:9080/login?username='+user+"&&password="+password).then( res => {
-              alert(res.data);
               if(res.data=="登录失败！"){
-
+                alert(res.data);
               }else{
                 this.$router.push("/mainNav");
               }
@@ -106,9 +106,16 @@
     margin-left: 1100px;
     /*background-color: white;*/
   }
+  .mybody{
+    width: 100%;
+    height: 864px;
+    background: url("../assets/images/beverage-blurred-background-breakfast-2410571.jpg");
+
+  }
   .myloginbox {
     width: 100%;
-    height: 900px;
+    /*height: 900px;*/
+    height: 100%;
     /*background-color: #42b983;*/
     background: url("../assets/images/beverage-blurred-background-breakfast-2410571.jpg");
   }

@@ -76,8 +76,8 @@
         :before-close="handleClose">
         <span>确定要注销登录吗?</span>
         <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogVisible = false">取 消</el-button>
               <el-button type="primary" @click="loginout">确 定</el-button>
+              <el-button @click="dialogVisible = false">取 消</el-button>
             </span>
       </el-dialog>
 
@@ -134,6 +134,7 @@
             if(name=="消息设置"){
               component=Table;
             }
+
             let tabs = this.editableTabs2;
             let addFlag=true;
             if (tabs.length>1){
@@ -149,8 +150,9 @@
                 name: name,
                 content: component,
               });
-              this.activeName = name;
             }
+            this.activeName = name;
+
           },
           removeTab(targetName) {
             let tabs = this.editableTabs2;
@@ -170,6 +172,7 @@
             this.editableTabs2 = tabs.filter(tab => tab.name !== targetName);
           },
           loginout(){
+            this.$router.push("/loginPro");
 
           }
         },

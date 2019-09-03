@@ -43,6 +43,15 @@ export default new Router({
       ]*/
 
 
+    }, {
+      path: '/list',
+      component: UserList,
+      name: 'UserList',
+     /* children:[
+        {path:'/tabs/menuTree',component:MenuTree}
+      ]*/
+
+
     }
   ]
 })
