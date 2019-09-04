@@ -82,12 +82,7 @@
               <el-input v-model="form.username" auto-complete="off" class="el-form-name" disabled ></el-input>
             </el-form-item>
             <el-form-item label="密码" :label-width="formLabelWidth">
-              <!--<el-select v-model="form.region" placeholder="请选择活动区域">
-                <el-option label="昵称" value="shanghai"></el-option>
-                <el-option label="联系方式" value="beijing"></el-option>
-              </el-select>-->
               <el-input v-model="form.password" auto-complete="off" class="el-form-name"  ></el-input>
-
             </el-form-item>
             <el-form-item label="昵称" :label-width="formLabelWidth">
               <el-input v-model="form.nickname" auto-complete="off" class="el-form-name"  ></el-input>
@@ -112,12 +107,7 @@
               <el-input v-model="addform.username" auto-complete="off" class="el-form-name"  ></el-input>
             </el-form-item>
             <el-form-item  prop="password"label="密码" :label-width="formLabelWidth">
-              <!--<el-select v-model="form.region" placeholder="请选择活动区域">
-                <el-option label="昵称" value="shanghai"></el-option>
-                <el-option label="联系方式" value="beijing"></el-option>
-              </el-select>-->
               <el-input v-model="addform.password" auto-complete="off" class="el-form-name"  ></el-input>
-
             </el-form-item>
             <el-form-item  prop="nickname"label="昵称" :label-width="formLabelWidth">
               <el-input v-model="addform.nickname" auto-complete="off" class="el-form-name"  ></el-input>
@@ -169,7 +159,6 @@
         },
         formLabelWidth: '120px',
 
-
       }
     },
     mounted() {
@@ -183,8 +172,6 @@
     },
     methods:{
       handleEdit(index,row){
-        /*alert(row.userId)
-        alert(row.username)*/
         this.dialogFormVisible=true;
         this.form.userId=row.userId;
         this.form.username=row.username;
@@ -192,12 +179,6 @@
         this.form.telphone=row.telphone;
         this.form.address=row.address;
         this.form.nickname=row.nickname;
-       /* this.$ajax.get('http://localhost:9080/getUserList').then( res => {
-          console.log(res.data)
-          this.tableData5=res.data
-        }).catch(err => {
-          console.log(err)
-        })*/
       },
       adduser(){
         this.dialogAddFormVisible=true;
@@ -223,8 +204,6 @@
       },
       editInfo() {
         this.dialogFormVisible=false;
-        // this.$ajax.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-        // this.form.username='admin';
         this.$ajax({
           method:"post",
           url: "http://localhost:9080/updateUser",
