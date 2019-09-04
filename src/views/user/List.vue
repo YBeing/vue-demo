@@ -166,42 +166,22 @@
         })
       },
       editInfo() {
-        alert(1)
         this.dialogFormVisible=false;
-        this.$ajax.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
-        // this.Axios.post('http://localhost:9080/updateUser',{username:"admin"})
-        this.form.username='admin';
-        alert(JSON.stringify(this.form));
-        /*this.$ajax.post('http://localhost:9080/updateUser',{"user":"admin"}).then(function(res) {
-              var resData = res.data;
-              if(resData.status == "0") { //0表示成功，1表示失败
-                alert(resData.message);
-              }else{
-                alert(resData.message);
-              }
-            }).catch(function(){
-          alert("出错了");
-        });*/
+        // this.$ajax.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+        // this.form.username='admin';
         this.$ajax({
           method:"post",
           url: "http://localhost:9080/updateUser",
           data: {
             user: JSON.stringify(this.form)
           }
-        })
-        // Axios.post('http://localhost:9080/updateUser',{username:"admin"});
-        // axios.post('http://localhost:9080/updateUser',{username:"admin"})
-        /*this.$ajax.post('http://localhost:9080/updateUser',{username:"admin"}).then(function(res) {
-              // var resData = res.data;
 
-        });*/
-        /*this.$ajax.get('http://localhost:9080/updateUser').then( res => {
-          console.log(res.data)
-          this.tableData5=res.data
+        }).then(resp => {
+          this.getData()
+          // console.log(resp.data);
         }).catch(err => {
-          console.log(err)
-        })*/
+          console.log('请求失败：'+err.status+','+err.statusText);
+        });
       },
     }
   
