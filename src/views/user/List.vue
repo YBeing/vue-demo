@@ -64,21 +64,34 @@
     </el-table-column>
   </el-table>
 
-  <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-    <el-form :model="form">
-      <el-form-item label="活动名称" :label-width="formLabelWidth">
-        <el-input v-model="form.name" auto-complete="off"></el-input>
+  <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible" width="500px" >
+    <el-form :model="form" class="el-userform">
+<!--      <el-input v-model="form.userId" auto-complete="off" class="el-form-name" disabled ></el-input>-->
+
+      <el-form-item label="账号" :label-width="formLabelWidth">
+        <el-input v-model="form.username" auto-complete="off" class="el-form-name" disabled ></el-input>
       </el-form-item>
-      <el-form-item label="活动区域" :label-width="formLabelWidth">
-        <el-select v-model="form.region" placeholder="请选择活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
-        </el-select>
+      <el-form-item label="密码" :label-width="formLabelWidth">
+        <!--<el-select v-model="form.region" placeholder="请选择活动区域">
+          <el-option label="昵称" value="shanghai"></el-option>
+          <el-option label="联系方式" value="beijing"></el-option>
+        </el-select>-->
+        <el-input v-model="form.password" auto-complete="off" class="el-form-name"  ></el-input>
+
+      </el-form-item>
+      <el-form-item label="昵称" :label-width="formLabelWidth">
+        <el-input v-model="form.nickname" auto-complete="off" class="el-form-name"  ></el-input>
+      </el-form-item>
+      <el-form-item label="联系方式" :label-width="formLabelWidth">
+        <el-input v-model="form.telphone" auto-complete="off" class="el-form-name"  ></el-input>
+      </el-form-item>
+      <el-form-item label="通讯地址" :label-width="formLabelWidth">
+        <el-input v-model="form.address" auto-complete="off" class="el-form-name"  ></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      <el-button type="primary" @click="editInfo">确 定</el-button>
     </div>
   </el-dialog>
 
@@ -96,16 +109,15 @@
         tableData5: [],
         dialogFormVisible: false,
         form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          userId:'',
+          username: '',
+          password: '',
+          nickname: '',
+          telphone: '',
+          address: '',
         },
         formLabelWidth: '120px',
+
 
       }
     },
@@ -123,12 +135,18 @@
         /*alert(row.userId)
         alert(row.username)*/
         this.dialogFormVisible=true;
-        this.$ajax.get('http://localhost:9080/getUserList').then( res => {
+        this.form.userId=row.userId;
+        this.form.username=row.username;
+        this.form.password=row.password;
+        this.form.telphone=row.telphone;
+        this.form.address=row.address;
+        this.form.nickname=row.nickname;
+       /* this.$ajax.get('http://localhost:9080/getUserList').then( res => {
           console.log(res.data)
           this.tableData5=res.data
         }).catch(err => {
           console.log(err)
-        })
+        })*/
       },
       handleDelete(index,row){
         this.$ajax.get('http://localhost:9080/deleteUser?userid='+row.userId).then( res => {
@@ -146,6 +164,44 @@
         }).catch(err => {
           console.log(err)
         })
+      },
+      editInfo() {
+        alert(1)
+        this.dialogFormVisible=false;
+        this.$ajax.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+        // this.Axios.post('http://localhost:9080/updateUser',{username:"admin"})
+        this.form.username='admin';
+        alert(JSON.stringify(this.form));
+        /*this.$ajax.post('http://localhost:9080/updateUser',{"user":"admin"}).then(function(res) {
+              var resData = res.data;
+              if(resData.status == "0") { //0表示成功，1表示失败
+                alert(resData.message);
+              }else{
+                alert(resData.message);
+              }
+            }).catch(function(){
+          alert("出错了");
+        });*/
+        this.$ajax({
+          method:"post",
+          url: "http://localhost:9080/updateUser",
+          data: {
+            user: JSON.stringify(this.form)
+          }
+        })
+        // Axios.post('http://localhost:9080/updateUser',{username:"admin"});
+        // axios.post('http://localhost:9080/updateUser',{username:"admin"})
+        /*this.$ajax.post('http://localhost:9080/updateUser',{username:"admin"}).then(function(res) {
+              // var resData = res.data;
+
+        });*/
+        /*this.$ajax.get('http://localhost:9080/updateUser').then( res => {
+          console.log(res.data)
+          this.tableData5=res.data
+        }).catch(err => {
+          console.log(err)
+        })*/
       },
     }
   
@@ -165,5 +221,12 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+  .el-form-name{
+    width: 235px;
+  }
+  .el-userform{
+    width: 100px;
+    height: 300px;
   }
 </style>
