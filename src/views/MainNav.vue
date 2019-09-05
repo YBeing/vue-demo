@@ -42,7 +42,7 @@
                     <span>系统管理</span>
                   </template>
                   <el-menu-item-group>
-                    <el-menu-item index="1-2" @click="addTab('菜单管理')" >菜单管理</el-menu-item>
+                    <el-menu-item index="1-2" @click="addTab('单位管理')" >单位管理</el-menu-item>
                   </el-menu-item-group>
                   <el-menu-item index="1-3" @click="addTab('用户管理')">用户管理</el-menu-item>
                   </el-menu-item-group>
@@ -93,6 +93,7 @@
     import  Form from '../views/tabs/Form'
     import  Table from '../views/tabs/Table'
     import List from '../views/user/List'
+    import UnitTree from  '../views/user/UnitTree'
     export default {
         name: "MainNav",
         components:{
@@ -128,8 +129,8 @@
             if(name=="用户管理"){
               component=List;
             }
-            if(name=="菜单管理"){
-              component=Form;
+            if(name=="单位管理"){
+              component=UnitTree;
             }
             if(name=="消息设置"){
               component=Table;
