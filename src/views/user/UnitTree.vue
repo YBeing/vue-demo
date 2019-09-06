@@ -1,24 +1,77 @@
 <template>
-  <div class="menutree">
-    <el-input
-      placeholder="输入关键字进行过滤"
-      v-model="filterText">
-    </el-input>
+  <el-container>
+    <el-aside  width="15%">
 
-    <el-tree
-      class="filter-tree"
-      :data="data2"
-      :props="defaultProps"
-      default-expand-all
-      :filter-node-method="filterNode"
-      ref="tree2">
-    </el-tree>
-  </div>
+        <el-input
+          placeholder="输入关键字进行过滤"
+          v-model="filterText">
+        </el-input>
+        <el-tree
+          class="filter-tree"
+          :data="unitTreeData"
+          :props="defaultProps"
+          default-expand-all
+          :filter-node-method="filterNode"
+          ref="tree2">
+        </el-tree>
+    </el-aside>
+    <el-main>
+      <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini">
+        <el-form-item label="单位ID" :label-width="formLabelWidth">
+          <el-input v-model="formInline.user" placeholder="单位ID"></el-input>
+        </el-form-item>
+        <el-form-item label="单位code" :label-width="formLabelWidth">
+          <el-input v-model="formInline.user" placeholder="单位code"></el-input>
+        </el-form-item>
+        <br/>
+        <el-form-item label="单位名称" :label-width="formLabelWidth">
+          <el-input v-model="formInline.user" placeholder="单位名称"></el-input>
+        </el-form-item>
+        <el-form-item label="父级ID" :label-width="formLabelWidth">
+          <el-input v-model="formInline.user" placeholder="父级ID"></el-input>
+        </el-form-item>
+        <!--<el-form-item>
+          <el-button type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>-->
+      </el-form>
+
+
+
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+        :row-class-name="tableRowClassName">
+        <el-table-column
+          prop="date"
+          label="日期"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="姓名"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="address"
+          label="地址">
+        </el-table-column>
+      </el-table>
+
+
+
+
+
+      <!--<div slot="footer" class="dialog-footer">
+        <el-button @click="dialogAddFormVisible = false">取 消</el-button>
+        <el-button @click="resetForm('addform')">重置</el-button>
+        <el-button type="primary" @click="addInfo">确 定</el-button>
+      </div>-->
+    </el-main>
+  </el-container>
 </template>
-
 <script>
     export default {
-        name: "UnitTree",
+      name: "UnitTree",
       watch: {
         filterText(val) {
           this.$refs.tree2.filter(val);
@@ -29,59 +82,71 @@
         filterNode(value, data) {
           if (!value) return true;
           return data.label.indexOf(value) !== -1;
+        },
+        tableRowClassName({row, rowIndex}) {
+          if (rowIndex === 1) {
+            return 'warning-row';
+          } else if (rowIndex === 3) {
+            return 'success-row';
+          }
+          return '';
         }
       },
-
       data() {
         return {
           filterText: '',
-          data2: [{
-            id: 1,
-            label: '一级 1',
-            children: [{
-              id: 4,
-              label: '二级 1-1',
-              children: [{
-                id: 9,
-                label: '三级 1-1-1'
-              }, {
-                id: 10,
-                label: '三级 1-1-2'
-              }]
-            }]
-          }, {
-            id: 2,
-            label: '一级 2',
-            children: [{
-              id: 5,
-              label: '二级 2-1'
-            }, {
-              id: 6,
-              label: '二级 2-2'
-            }]
-          }, {
-            id: 3,
-            label: '一级 3',
-            children: [{
-              id: 7,
-              label: '二级 3-1'
-            }, {
-              id: 8,
-              label: '二级 3-2'
-            }]
-          }],
+          unitTreeData:[],
           defaultProps: {
             children: 'children',
             label: 'label'
-          }
+          },
+          formInline: {
+            user: '',
+            region: ''
+          },
+          formLabelWidth:'90px',
+          tableData: [{
+            date: '2016-05-02',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄',
+          }, {
+            date: '2016-05-04',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
+          }, {
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄',
+          }, {
+            date: '2016-05-03',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1518 弄'
+          }]
+
         };
+      },
+      mounted:function () {
+        this.$ajax.get('http://localhost:9080/unit/getUnitTree').then( res => {
+          /*console.log(JSON.stringify(res.data))
+          console.log(JSON.stringify(this.data2))*/
+          this.unitTreeData=res.data;
+        }).catch(err => {
+          console.log(err)
+        })
       }
 
     }
 </script>
 
 <style scoped>
-  .menutree{
-    width: 15%;
+  .el-table .warning-row {
+    background: oldlace;
   }
+
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
+
+
+
 </style>
