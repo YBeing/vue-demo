@@ -12,23 +12,23 @@
           :props="defaultProps"
           default-expand-all
           :filter-node-method="filterNode"
-          ref="tree2">
+          ref="tree2" @node-click="nodeclick">
         </el-tree>
     </el-aside>
     <el-main>
       <el-form :inline="true" :model="formInline" class="demo-form-inline" size="mini">
         <el-form-item label="单位ID" :label-width="formLabelWidth">
-          <el-input v-model="formInline.user" placeholder="单位ID"></el-input>
+          <el-input v-model="formInline.id" placeholder="单位ID"></el-input>
         </el-form-item>
         <el-form-item label="单位code" :label-width="formLabelWidth">
-          <el-input v-model="formInline.user" placeholder="单位code"></el-input>
+          <el-input v-model="formInline.unitcode" placeholder="单位code"></el-input>
         </el-form-item>
         <br/>
         <el-form-item label="单位名称" :label-width="formLabelWidth">
-          <el-input v-model="formInline.user" placeholder="单位名称"></el-input>
+          <el-input v-model="formInline.unitname" placeholder="单位名称"></el-input>
         </el-form-item>
         <el-form-item label="父级ID" :label-width="formLabelWidth">
-          <el-input v-model="formInline.user" placeholder="父级ID"></el-input>
+          <el-input v-model="formInline.pid" placeholder="父级ID"></el-input>
         </el-form-item>
         <!--<el-form-item>
           <el-button type="primary" @click="onSubmit">查询</el-button>
@@ -90,7 +90,18 @@
             return 'success-row';
           }
           return '';
+        },
+        nodeclick(obj,nodetmp,componenttmp){
+          this.formInline.id=obj.id;
+          this.formInline.unitname=obj.label;
+          this.formInline.unitcode=obj.unitcode;
+          this.formInline.pid=obj.pid;
+          /*console.log(obj)
+          console.log(nodetmp)
+          console.log(componenttmp)*/
+
         }
+
       },
       data() {
         return {
@@ -101,8 +112,10 @@
             label: 'label'
           },
           formInline: {
-            user: '',
-            region: ''
+            id: '',
+            unitcode: '',
+            unitname: '',
+            pid: '',
           },
           formLabelWidth:'90px',
           tableData: [{
