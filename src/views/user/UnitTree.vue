@@ -42,21 +42,45 @@
         style="width: 100%"
         :row-class-name="tableRowClassName">
         <el-table-column
-          prop="date"
-          label="日期"
-          width="180">
+          prop="guid"
+          label="GUID"
+           >
         </el-table-column>
         <el-table-column
-          prop="name"
-          label="姓名"
-          width="180">
+          prop="billtype.billcode"
+          label="票据种类编码"
+          >
         </el-table-column>
         <el-table-column
-          prop="address"
-          label="地址">
+          prop="billtype.billname"
+          label="票据种类名称">
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleEdit(scope.$index, scope.row)">设置票据种类执收项目对应关系</el-button>
+            <!--<el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
+          </template>
         </el-table-column>
       </el-table>
-
+      <el-dialog title="设置票据种类执收项目对应关系" :visible.sync="itemTreeShowFlag" width="500px" >
+        <el-tree
+          :data="itemcodeTree"
+          show-checkbox
+          node-key="id"
+          ref="ref_itemTree">
+        </el-tree>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="itemTreeShowFlag = false">取 消</el-button>
+<!--          <el-button  >重置</el-button>-->
+          <el-button type="primary" @click="updateBillChargeitem" >确 定</el-button>
+        </div>
+      </el-dialog>
 
 
 
@@ -96,10 +120,69 @@
           this.formInline.unitname=obj.label;
           this.formInline.unitcode=obj.unitcode;
           this.formInline.pid=obj.pid;
-          /*console.log(obj)
-          console.log(nodetmp)
-          console.log(componenttmp)*/
+          this.$ajax({
+            method:"post",
+            url: "http://localhost:9080/unitbilltb/getByUnitcode",
+            data: {
+              unitcode: obj.unitcode
+            }
 
+          }).then(resp => {
+            this.tableData=resp.data;
+            // this.getData()
+          }).catch(err => {
+            console.log('请求失败：'+err.status+','+err.statusText);
+          });
+
+        },
+        handleEdit(index,row){
+          this.itemTreeShowFlag=true;
+          this.globalBillcode=row.billtype.billcode;
+          this.$ajax({
+            method:"post",
+            url: "http://localhost:9080/billchargeitem/getAllItem",
+
+          }).then(resp => {
+            this.itemcodeTree=resp.data;
+            this.$refs.ref_itemTree.setCheckedKeys([1]);
+            this.$ajax({
+              method:"post",
+              url: "http://localhost:9080/billchargeitem/selectByBitycode",
+              data: {
+                bitycode: row.billtype.billcode
+              }
+
+            }).then(resp => {
+              var  itemArray=new Array();
+              for (var i=0;i<resp.data.length;i++){
+                itemArray[i]=resp.data[i].id;
+              }
+              this.$refs.ref_itemTree.setCheckedKeys(itemArray);
+
+
+            }).catch(err => {
+              console.log('请求失败：'+err.status+','+err.statusText);
+            });
+          }).catch(err => {
+            console.log('请求失败：'+err.status+','+err.statusText);
+          });
+        },
+        updateBillChargeitem(){
+          // console.log(this.$refs.ref_itemTree.getCheckedKeys());
+          this.$ajax({
+            method:"post",
+            url: "http://localhost:9080/billchargeitem/updateEbillChargeitem",
+            data: {
+              bitycode: this.globalBillcode,
+              itemArray:this.$refs.ref_itemTree.getCheckedKeys()
+            }
+
+          }).then(resp => {
+
+
+          }).catch(err => {
+            console.log('请求失败：'+err.status+','+err.statusText);
+          });
         }
 
       },
@@ -118,23 +201,11 @@
             pid: '',
           },
           formLabelWidth:'90px',
-          tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄',
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄',
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }]
+          tableData: [],
+          itemTreeShowFlag: false,
+          itemcodeTree: [],
+          globalBillcode:''
+
 
         };
       },
