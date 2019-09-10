@@ -15,9 +15,13 @@ import MenuTree from '../views/tabs/MenuTree'
 Vue.use(Router)
 
 export default new Router({
-  mode:'history',
+  // mode:'history',
+  // base: '/dist',
   routes: [
-
+    {
+      path: '/',
+      redirect: '/mainNav',
+    },
     {
       path: '/login',
       component: Login,
