@@ -10,7 +10,6 @@
           class="filter-tree"
           :data="unitTreeData"
           :props="defaultProps"
-          default-expand-all
           :filter-node-method="filterNode"
           ref="tree2" @node-click="nodeclick">
         </el-tree>
@@ -178,6 +177,7 @@
             }
 
           }).then(resp => {
+            this.itemTreeShowFlag=false;
 
 
           }).catch(err => {
