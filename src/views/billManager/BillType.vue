@@ -2,12 +2,7 @@
   <div>
     <el-container>
       <el-header>
-<!--        <el-button icon="el-icon-search" circle></el-button>-->
         <el-button type="primary" icon="el-icon-edit"  @click="adduser">新增</el-button>
-        <!--<el-button type="success" icon="el-icon-check" circle></el-button>
-        <el-button type="info" icon="el-icon-message" circle></el-button>
-        <el-button type="warning" icon="el-icon-star-off" circle></el-button>
-        <el-button type="danger" icon="el-icon-delete" circle></el-button>-->
       </el-header>
       <el-main>
         <el-table
@@ -16,50 +11,53 @@
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item label="用户id:">
-                  <span>{{ props.row.userId }}</span>
+                <el-form-item label="票据id:">
+                  <span>{{ props.row.id }}</span>
                 </el-form-item>
-                <el-form-item label="用户名称:">
-                  <span>{{ props.row.username }}</span>
+                <el-form-item label="票据种类编码:">
+                  <span>{{ props.row.billcode }}</span>
                 </el-form-item>
-                <el-form-item label="用户密码:">
-                  <span>{{ props.row.password }}</span>
+                <el-form-item label="票据种类名称:">
+                  <span>{{ props.row.billname }}</span>
                 </el-form-item>
-                <el-form-item label="用户昵称:">
-                  <span>{{ props.row.nickname }}</span>
+                <el-form-item label="是否电子票据:">
+                  <span>{{ props.row.isdzpj }}</span>
                 </el-form-item>
-                <el-form-item label="联系方式:">
-                  <span>{{ props.row.telphone }}</span>
+                <el-form-item label="起止有效日期:">
+                  <span>{{ props.row.startdate }}</span>
                 </el-form-item>
-                <el-form-item label="通讯地址:">
-                  <span>{{ props.row.address }}</span>
+                <el-form-item label="截止有效日期:">
+                  <span>{{ props.row.enddate }}</span>
                 </el-form-item>
               </el-form>
             </template>
           </el-table-column>
           <el-table-column
-            label="UserID"
-            prop="userId">
+            label="票据id"
+            prop="id">
           </el-table-column>
           <el-table-column
-            label="用户名"
-            prop="username">
+            label="票据种类编码"
+            prop="billcode">
           </el-table-column>
           <el-table-column
-            label="密码"
-            prop="password">
+            label="票据种类名称"
+            prop="billname">
           </el-table-column>
           <el-table-column
-            label="用户昵称"
-            prop="nickname">
+            label="是否电子票据"
+            prop="isdzpj"
+            :formatter="formatter">
           </el-table-column>
           <el-table-column
-            label="联系方式"
-            prop="telphone">
+            label="起止有效日期"
+            prop="startdate"
+          >
           </el-table-column>
           <el-table-column
-            label="通讯地址"
-            prop="address">
+            label="截止有效日期"
+            prop="enddate"
+            >
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
@@ -83,24 +81,28 @@
           :total="totalDataCount" class="mypagination">
         </el-pagination>
 
-        <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible" width="500px" >
+        <el-dialog title="修改电子票据种类信息" :visible.sync="dialogFormVisible" width="500px" >
           <el-form :model="form" class="el-userform">
       <!--      <el-input v-model="form.userId" auto-complete="off" class="el-form-name" disabled ></el-input>-->
-
-            <el-form-item label="账号" :label-width="formLabelWidth">
-              <el-input v-model="form.username" auto-complete="off" class="el-form-name" disabled ></el-input>
+            <el-form-item label="电子票据种类id" :label-width="formLabelWidth">
+              <el-input v-model="form.id" auto-complete="off" class="el-form-name" disabled ></el-input>
             </el-form-item>
-            <el-form-item label="密码" :label-width="formLabelWidth">
-              <el-input v-model="form.password" auto-complete="off" class="el-form-name"  ></el-input>
+            <el-form-item label="票据种类编码" :label-width="formLabelWidth">
+              <el-input v-model="form.billcode" auto-complete="off" class="el-form-name" disabled ></el-input>
             </el-form-item>
-            <el-form-item label="昵称" :label-width="formLabelWidth">
-              <el-input v-model="form.nickname" auto-complete="off" class="el-form-name"  ></el-input>
+            <el-form-item label="票据种类名称" :label-width="formLabelWidth">
+              <el-input v-model="form.billname" auto-complete="off" class="el-form-name"  ></el-input>
             </el-form-item>
-            <el-form-item label="联系方式" :label-width="formLabelWidth">
-              <el-input v-model="form.telphone" auto-complete="off" class="el-form-name"  ></el-input>
+            <el-form-item label="是否电子票据" :label-width="formLabelWidth">
+              <el-input v-model="form.isdzpj" auto-complete="off" class="el-form-name"  ></el-input>
             </el-form-item>
-            <el-form-item label="通讯地址" :label-width="formLabelWidth">
-              <el-input v-model="form.address" auto-complete="off" class="el-form-name"  ></el-input>
+            <el-form-item label="起止有效日期" :label-width="formLabelWidth">
+<!--              <el-input v-model="form.startdate" auto-complete="off" class="el-form-name"  ></el-input>-->
+              <el-date-picker type="date" placeholder="选择日期" v-model="form.startdate" value-format="yyyy-MM-dd"></el-date-picker>
+            </el-form-item>
+            <el-form-item label="截止有效日期" :label-width="formLabelWidth">
+<!--              <el-input v-model="form.enddate" auto-complete="off" class="el-form-name"  ></el-input>-->
+              <el-date-picker type="date" placeholder="选择日期" v-model="form.enddate" value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -112,20 +114,26 @@
           <el-form  ref="addform" :model="addform" class="el-userform">
       <!--      <el-input v-model="form.userId" auto-complete="off" class="el-form-name" disabled ></el-input>-->
 
-            <el-form-item  prop="username" label="账号" :label-width="formLabelWidth">
-              <el-input v-model="addform.username" auto-complete="off" class="el-form-name"  ></el-input>
+            <!--<el-form-item    label="电子票据种类id" :label-width="formLabelWidth">
+              <el-input v-model="addform.id" auto-complete="off" class="el-form-name"  ></el-input>
+            </el-form-item>-->
+            <el-form-item   label="票据种类编码" :label-width="formLabelWidth">
+              <el-input v-model="addform.billcode" auto-complete="off" class="el-form-name"  ></el-input>
             </el-form-item>
-            <el-form-item  prop="password"label="密码" :label-width="formLabelWidth">
-              <el-input v-model="addform.password" auto-complete="off" class="el-form-name"  ></el-input>
+            <el-form-item   label="票据种类名称" :label-width="formLabelWidth">
+              <el-input v-model="addform.billname" auto-complete="off" class="el-form-name"  ></el-input>
             </el-form-item>
-            <el-form-item  prop="nickname"label="昵称" :label-width="formLabelWidth">
-              <el-input v-model="addform.nickname" auto-complete="off" class="el-form-name"  ></el-input>
+            <el-form-item   label="是否电子票据" :label-width="formLabelWidth">
+              <el-input v-model="addform.isdzpj" auto-complete="off" class="el-form-name"  ></el-input>
             </el-form-item>
-            <el-form-item prop="telphone" label="联系方式" :label-width="formLabelWidth">
-              <el-input v-model="addform.telphone" auto-complete="off" class="el-form-name"  ></el-input>
+            <el-form-item   label="起止有效日期" :label-width="formLabelWidth">
+<!--              <el-input v-model="addform.startdate" auto-complete="off" class="el-form-name"  ></el-input>-->
+              <el-date-picker type="date" placeholder="选择日期" v-model="addform.startdate" value-format="yyyy-MM-dd" ></el-date-picker>
             </el-form-item>
-            <el-form-item prop="address" label="通讯地址" :label-width="formLabelWidth">
-              <el-input v-model="addform.address" auto-complete="off" class="el-form-name"  ></el-input>
+            <el-form-item   label="截止有效日期" :label-width="formLabelWidth">
+<!--              <el-input v-model="addform.enddate" auto-complete="off" class="el-form-name"  ></el-input>-->
+              <el-date-picker type="date" placeholder="选择日期" v-model="addform.enddate" value-format="yyyy-MM-dd" ></el-date-picker>
+
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -151,20 +159,20 @@
         dialogFormVisible: false,
         dialogAddFormVisible: false,
         form: {
-          userId:'',
-          username: '',
-          password: '',
-          nickname: '',
-          telphone: '',
-          address: '',
+          id:'',
+          billcode: '',
+          billname: '',
+          isdzpj: '',
+          startdate: '',
+          enddate: '',
         },
         addform: {
-          userId:'',
-          username: '',
-          password: '',
-          nickname: '',
-          telphone: '',
-          address: '',
+          id:'',
+          billcode: '',
+          billname: '',
+          isdzpj: '',
+          startdate: '',
+          enddate: '',
         },
         formLabelWidth: '120px',
         currentPage:1,
@@ -174,11 +182,10 @@
       }
     },
     mounted() {
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/getUserList').then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/list').then( res => {
           console.log(res.data)
           this.tableData5=res.data;
           this.totalDataCount=res.data.length;
-
         }).catch(err => {
           console.log(err)
         })
@@ -187,12 +194,12 @@
     methods:{
       handleEdit(index,row){
         this.dialogFormVisible=true;
-        this.form.userId=row.userId;
-        this.form.username=row.username;
-        this.form.password=row.password;
-        this.form.telphone=row.telphone;
-        this.form.address=row.address;
-        this.form.nickname=row.nickname;
+        this.form.id=row.id;
+        this.form.billcode=row.billcode;
+        this.form.billname=row.billname;
+        this.form.isdzpj=row.isdzpj;
+        this.form.startdate=row.startdate;
+        this.form.enddate=row.enddate;
       },
       adduser(){
         this.dialogAddFormVisible=true;
@@ -200,7 +207,7 @@
 
       },
       handleDelete(index,row){
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/deleteUser?userid='+row.userId).then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/deleteByPrimaryKey?id='+row.id).then( res => {
           //删除结束再次调用查询方法，刷新table里面的值
           this.getData()
 
@@ -209,7 +216,7 @@
         })
       },
       getData() {
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/getUserList').then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/list').then( res => {
           console.log(res.data)
           this.tableData5=res.data
         }).catch(err => {
@@ -220,9 +227,9 @@
         this.dialogFormVisible=false;
         this.$ajax({
           method:"post",
-          url: "http://129.204.21.11:9080/springboot-vue/updateUser",
+          url: "http://localhost:9080/springboot-vue/billtype/updateByPrimaryKey",
           data: {
-            user: JSON.stringify(this.form)
+            record: JSON.stringify(this.form)
           }
 
         }).then(resp => {
@@ -230,13 +237,14 @@
         }).catch(err => {
           console.log('请求失败：'+err.status+','+err.statusText);
         });
-      },addInfo() {
+      },
+      addInfo() {
         this.dialogAddFormVisible=false;
         this.$ajax({
           method:"post",
-          url: "http://129.204.21.11:9080/springboot-vue/addUser",
+          url: "http://localhost:9080/springboot-vue/billtype/insert",
           data: {
-            user: JSON.stringify(this.addform)
+            record: JSON.stringify(this.addform)
           }
 
         }).then(resp => {
@@ -247,7 +255,14 @@
         });
       },
       resetForm(formName) {
-        this.$refs['addform'].resetFields();
+        this.$refs[formName].resetFields();
+      },
+      formatter(row, column){
+        if(row.isdzpj=="1"){
+          return "是"
+        }else {
+          return "否"
+        }
       },
       handleSizeChange(val) {
         this.pagesize=val;
@@ -255,6 +270,7 @@
       handleCurrentChange(val) {
         this.currentPage=val;
       }
+
     }
   
 
@@ -279,7 +295,7 @@
   }
   .el-userform{
     width: 100px;
-    height: 300px;
+    height: 330px;
   }
   .mypagination{
     padding-left: 30%;

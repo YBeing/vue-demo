@@ -24,13 +24,23 @@
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose">
+
+                <el-submenu index="3">
+                    <template slot="title">
+                      <i class="el-icon-document"></i>
+                      <span>电子票据</span>
+                    </template>
+                    <el-menu-item-group>
+                      <el-menu-item index="3-1" @click="addTab('电子票据种类管理')" >电子票据种类管理</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item index="3-2" @click="addTab('执收项目管理')">执收项目管理</el-menu-item>
+                    </el-menu-item-group>
+
+                </el-submenu>
+
                 <el-menu-item index="2">
                   <i class="el-icon-menu"></i>
                   <span slot="title">商户管理</span>
-                </el-menu-item>
-                <el-menu-item index="3" >
-                  <i class="el-icon-document"></i>
-                  <span slot="title">电子票据</span>
                 </el-menu-item>
                 <el-menu-item index="4">
                   <i class="el-icon-location"></i>
@@ -46,13 +56,8 @@
                   </el-menu-item-group>
                   <el-menu-item index="1-3" @click="addTab('用户管理')">用户管理</el-menu-item>
                   </el-menu-item-group>
-                  <el-submenu index="1-4">
-                    <template slot="title">消息管理</template>
-                    <el-menu-item index="1-4-1" @click="addTab('消息设置')">消息设置</el-menu-item>
-                  </el-submenu>
                 </el-submenu>
               </el-menu>
-<!--            </el-col>-->
           </el-aside>
           <el-main>
 
@@ -91,6 +96,7 @@
     import  Carousel from './Carousel'
     import List from './systemSetting/UserList'
     import UnitTree from './systemSetting/UnitTree'
+    import BillType from  './billManager/BillType'
     export default {
         name: "MainNav",
         components:{
@@ -128,7 +134,9 @@
             if(name=="单位管理"){
               component=UnitTree;
             }
-            if(name=="消息设置"){
+
+            if(name=="电子票据种类管理"){
+              component=BillType;
             }
 
             let tabs = this.editableTabs2;
