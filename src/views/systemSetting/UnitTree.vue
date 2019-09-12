@@ -121,7 +121,7 @@
           this.formInline.pid=obj.pid;
           this.$ajax({
             method:"post",
-            url: "http://localhost:9080/unitbilltb/getByUnitcode",
+            url: "http://129.204.21.11:9080/springboot-vue/unitbilltb/getByUnitcode",
             data: {
               unitcode: obj.unitcode
             }
@@ -139,14 +139,14 @@
           this.globalBillcode=row.billtype.billcode;
           this.$ajax({
             method:"post",
-            url: "http://localhost:9080/billchargeitem/getAllItem",
+            url: "http://129.204.21.11:9080/springboot-vue/billchargeitem/getAllItem",
 
           }).then(resp => {
             this.itemcodeTree=resp.data;
             this.$refs.ref_itemTree.setCheckedKeys([1]);
             this.$ajax({
               method:"post",
-              url: "http://localhost:9080/billchargeitem/selectByBitycode",
+              url: "http://129.204.21.11:9080/springboot-vue/billchargeitem/selectByBitycode",
               data: {
                 bitycode: row.billtype.billcode
               }
@@ -170,7 +170,7 @@
           // console.log(this.$refs.ref_itemTree.getCheckedKeys());
           this.$ajax({
             method:"post",
-            url: "http://localhost:9080/billchargeitem/updateEbillChargeitem",
+            url: "http://129.204.21.11:9080/springboot-vue/billchargeitem/updateEbillChargeitem",
             data: {
               bitycode: this.globalBillcode,
               itemArray:this.$refs.ref_itemTree.getCheckedKeys()
@@ -210,7 +210,7 @@
         };
       },
       mounted:function () {
-        this.$ajax.get('http://localhost:9080/unit/getUnitTree').then( res => {
+        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/unit/getUnitTree').then( res => {
           /*console.log(JSON.stringify(res.data))
           console.log(JSON.stringify(this.data2))*/
           this.unitTreeData=res.data;

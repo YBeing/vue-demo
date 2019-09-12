@@ -22,13 +22,13 @@
 <style scoped>
   #i1{
     /*background: url("../assets/images/beautiful-blue-christmas-2011367.jpg");*/
-    background: url("../../assets/images/beautiful-blue-christmas-2011367.jpg");
+    background: url("../assets/images/beautiful-blue-christmas-2011367.jpg");
 
   }
   #i2{
-    background: url("../../assets/images/astrophotography-background-dark-746393.jpg");
+    background: url("../assets/images/astrophotography-background-dark-746393.jpg");
   }
   #i3{
-    background: url("../../assets/images/coast-island-mountain-2821285.jpg");
+    background: url("../assets/images/coast-island-mountain-2821285.jpg");
   }
 </style>

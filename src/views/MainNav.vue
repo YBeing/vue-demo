@@ -8,7 +8,7 @@
               <el-menu-item index="2-2">登录状态</el-menu-item>
               <el-menu-item index="2-3">用户信息</el-menu-item>
             </el-submenu>
-            <el-menu-item index="3" ><a class="el-icon-message">消息中心</a></el-menu-item>
+<!--            <el-menu-item index="3" ><a class="el-icon-message">消息中心</a></el-menu-item>-->
 
             <el-menu-item  index="1" @click="dialogVisible = true"><a class="el-icon-phone-outline">注销</a></el-menu-item>
 
@@ -88,16 +88,12 @@
 </template>
 
 <script>
-    import  MenuTree from '../views/tabs/MenuTree'
-    import  Carousel from '../views/tabs/Carousel'
-    import  Form from '../views/tabs/Form'
-    import  Table from '../views/tabs/Table'
-    import List from '../views/user/List'
-    import UnitTree from  '../views/user/UnitTree'
+    import  Carousel from './Carousel'
+    import List from './systemSetting/UserList'
+    import UnitTree from './systemSetting/UnitTree'
     export default {
         name: "MainNav",
         components:{
-          tree:MenuTree,
           carous:Carousel
         },
         data(){
@@ -133,7 +129,6 @@
               component=UnitTree;
             }
             if(name=="消息设置"){
-              component=Table;
             }
 
             let tabs = this.editableTabs2;
@@ -202,7 +197,7 @@
     background: url("../assets/images/coast-island-mountain-2821285.jpg");
   }
   .el-menu-demo{
-    padding-left: 1100px;
+    padding-left: 84%;
   }
   .el-icon-message{
     margin-right: 80px;

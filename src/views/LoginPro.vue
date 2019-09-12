@@ -1,5 +1,4 @@
 <template>
-<!--  <div class="myloginbox">-->
     <el-container class="mybody">
       <el-form ref="ruleForm3" :model="ruleForm2" status-icon :rules="rules2"  label-width="100px" class="demo-ruleForm" size="mini">
         <el-form-item  label="账号" prop="user" class="a1">
@@ -8,26 +7,20 @@
         <el-form-item label="密码" prop="pass">
           <el-input type="password" v-model="ruleForm2.pass"  auto-complete="off"></el-input>
         </el-form-item>
-
-
         <el-form-item>
-<!--          <el-button type="primary" @click="submitForm('ruleForm3')">提交</el-button>-->
           <el-button type="primary" @click="login()">登录</el-button>
-<!--          <el-button  @click="login()">登录</el-button>-->
           <el-button @click="resetForm('ruleForm3')">重置</el-button>
         </el-form-item>
       </el-form>
     </el-container>
-<!--  </div>-->
 </template>
 
 <script>
   export default {
     name:"LoginPro",
+
     data() {
       var checkuser = (rule, value, callback) => {
-        // alert(value)
-
         if (value=="" || value==null) {
           return callback(new Error('账号不能为空'));
         }else{
@@ -36,15 +29,11 @@
 
       };
       var checkpass = (rule, value, callback) => {
-        // alert(value)
         if (value=="" || value==null) {
           return callback(new Error('密码不能为空'));
         }else{
           callback();
         }
-        /*if (value === '') {
-          callback(new Error('密码不能为空'));
-        }*/
       };
 
       return {
@@ -60,8 +49,10 @@
           pass: [
             { validator: checkpass, trigger: 'blur' }
           ]
-        }
-      };
+        },
+        loginflag:false,
+
+    };
     },
     methods: {
       submitForm(formName) {
@@ -69,8 +60,6 @@
           if (valid) {
             this.$router.push("/mainPro");
           } else {
-            // console.log('error submit!!');
-            alert('submit!');
             return false;
           }
 
@@ -82,10 +71,13 @@
       login() {
            let user= this.ruleForm2.user;
            let password=this.ruleForm2.pass;
-           this.$ajax.get('http://localhost:9080/login?username='+user+"&&password="+password).then( res => {
+           this.$ajax.get('http://129.204.21.11:9080/springboot-vue/login?username='+user+"&&password="+password).then( res => {
               if(res.data=="登录失败！"){
+                // this.loginflag=false;
                 alert(res.data);
               }else{
+                // this.loginflag=true;
+                sessionStorage.setItem("key", "loginsuccess");
                 this.$router.push("/mainNav");
               }
               console.log(res.data)
@@ -93,9 +85,8 @@
               console.log(err)
            })
 
-        // this.$refs[formName].resetFields();
       }
-    }
+    },
   }
 </script>
 
