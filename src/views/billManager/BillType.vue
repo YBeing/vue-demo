@@ -83,7 +83,6 @@
 
         <el-dialog title="修改电子票据种类信息" :visible.sync="dialogFormVisible" width="500px" >
           <el-form :model="form" class="el-userform">
-      <!--      <el-input v-model="form.userId" auto-complete="off" class="el-form-name" disabled ></el-input>-->
             <el-form-item label="电子票据种类id" :label-width="formLabelWidth">
               <el-input v-model="form.id" auto-complete="off" class="el-form-name" disabled ></el-input>
             </el-form-item>
@@ -97,11 +96,9 @@
               <el-input v-model="form.isdzpj" auto-complete="off" class="el-form-name"  ></el-input>
             </el-form-item>
             <el-form-item label="起止有效日期" :label-width="formLabelWidth">
-<!--              <el-input v-model="form.startdate" auto-complete="off" class="el-form-name"  ></el-input>-->
               <el-date-picker type="date" placeholder="选择日期" v-model="form.startdate" value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
             <el-form-item label="截止有效日期" :label-width="formLabelWidth">
-<!--              <el-input v-model="form.enddate" auto-complete="off" class="el-form-name"  ></el-input>-->
               <el-date-picker type="date" placeholder="选择日期" v-model="form.enddate" value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
           </el-form>
@@ -112,11 +109,6 @@
         </el-dialog>
         <el-dialog title="新增用户信息" :visible.sync="dialogAddFormVisible" width="500px" >
           <el-form  ref="addform" :model="addform" class="el-userform">
-      <!--      <el-input v-model="form.userId" auto-complete="off" class="el-form-name" disabled ></el-input>-->
-
-            <!--<el-form-item    label="电子票据种类id" :label-width="formLabelWidth">
-              <el-input v-model="addform.id" auto-complete="off" class="el-form-name"  ></el-input>
-            </el-form-item>-->
             <el-form-item   label="票据种类编码" :label-width="formLabelWidth">
               <el-input v-model="addform.billcode" auto-complete="off" class="el-form-name"  ></el-input>
             </el-form-item>
@@ -182,7 +174,7 @@
       }
     },
     mounted() {
-        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/list').then( res => {
+        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/billtype/list').then( res => {
           console.log(res.data)
           this.tableData5=res.data;
           this.totalDataCount=res.data.length;
@@ -207,7 +199,7 @@
 
       },
       handleDelete(index,row){
-        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/deleteByPrimaryKey?id='+row.id).then( res => {
+        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/billtype/deleteByPrimaryKey?id='+row.id).then( res => {
           //删除结束再次调用查询方法，刷新table里面的值
           this.getData()
 
@@ -216,7 +208,7 @@
         })
       },
       getData() {
-        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/list').then( res => {
+        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/billtype/list').then( res => {
           console.log(res.data)
           this.tableData5=res.data
         }).catch(err => {
@@ -227,7 +219,7 @@
         this.dialogFormVisible=false;
         this.$ajax({
           method:"post",
-          url: "http://localhost:9080/springboot-vue/billtype/updateByPrimaryKey",
+          url: "http://129.204.21.11:9080/springboot-vue/billtype/updateByPrimaryKey",
           data: {
             record: JSON.stringify(this.form)
           }
@@ -242,7 +234,7 @@
         this.dialogAddFormVisible=false;
         this.$ajax({
           method:"post",
-          url: "http://localhost:9080/springboot-vue/billtype/insert",
+          url: "http://129.204.21.11:9080/springboot-vue/billtype/insert",
           data: {
             record: JSON.stringify(this.addform)
           }
@@ -301,4 +293,5 @@
     padding-left: 30%;
     padding-top: 20%;
   }
+
 </style>
