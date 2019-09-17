@@ -35,6 +35,9 @@
                     </el-menu-item-group>
                     <el-menu-item index="3-2" @click="addTab('执收项目管理')">执收项目管理</el-menu-item>
                     </el-menu-item-group>
+                  </el-menu-item-group>
+                    <el-menu-item index="3-2" @click="addTab('电子票据模板管理')">电子票据模板管理</el-menu-item>
+                    </el-menu-item-group>
 
                 </el-submenu>
 
@@ -97,6 +100,8 @@
     import List from './systemSetting/UserList'
     import UnitTree from './systemSetting/UnitTree'
     import BillType from  './billManager/BillType'
+    import ChargeItem from  './billManager/ChargeItem'
+    import Model from  './billManager/Model'
     export default {
         name: "MainNav",
         components:{
@@ -137,6 +142,12 @@
 
             if(name=="电子票据种类管理"){
               component=BillType;
+            }
+            if(name=="执收项目管理"){
+              component=ChargeItem;
+            }
+            if(name=="电子票据模板管理"){
+              component=Model;
             }
 
             let tabs = this.editableTabs2;
