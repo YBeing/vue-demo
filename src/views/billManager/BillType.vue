@@ -275,7 +275,7 @@
   }
   .demo-table-expand label {
     width: 90px;
-    /*color: #99a9bf;*/
+    color: #99a9bf;
   }
   .demo-table-expand .el-form-item {
     margin-right: 0;

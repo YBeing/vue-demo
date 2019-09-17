@@ -8,7 +8,9 @@
           <el-input type="password" v-model="ruleForm2.pass"  auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="login()">登录</el-button>
+          <el-button type="primary" @click="login()" v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="拼命加载中"
+                     element-loading-spinner="el-icon-loading"
+                     element-loading-background="rgba(255,240,224,0)">登录</el-button>
           <el-button @click="resetForm('ruleForm3')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -51,6 +53,7 @@
           ]
         },
         loginflag:false,
+        fullscreenLoading: false
 
     };
     },
@@ -69,14 +72,23 @@
         this.$refs[formName].resetFields();
       },
       login() {
+          this.fullscreenLoading = true;
+          setTimeout(() => {
+            this.fullscreenLoading = false;
+          }, 2000);
            let user= this.ruleForm2.user;
            let password=this.ruleForm2.pass;
            this.$ajax.get('http://129.204.21.11:9080/springboot-vue/login?username='+user+"&&password="+password).then( res => {
               if(res.data=="登录失败！"){
-                // this.loginflag=false;
-                alert(res.data);
+                this.$message({
+                  message: '登录失败，用户名或密码错误',
+                  type: 'warning'
+                });
               }else{
-                // this.loginflag=true;
+                this.$message({
+                  message: '登录成功！',
+                  type: 'success'
+                });
                 sessionStorage.setItem("key", "loginsuccess");
                 this.$router.push("/mainNav");
               }
@@ -87,6 +99,22 @@
 
       }
     },
+    created() {
+      var lett = this;
+      document.onkeydown = function (e) {
+        var key = window.event.keyCode;
+        if (key == 13) {
+          /*const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(255,240,224,0)'
+
+          });*/
+          // lett.login();
+        }
+      }
+    }
   }
 </script>
 
