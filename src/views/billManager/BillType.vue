@@ -174,7 +174,7 @@
       }
     },
     mounted() {
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/billtype/list').then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/list').then( res => {
           console.log(res.data)
           this.tableData5=res.data;
           this.totalDataCount=res.data.length;
@@ -199,7 +199,7 @@
 
       },
       handleDelete(index,row){
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/billtype/deleteByPrimaryKey?id='+row.id).then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/deleteByPrimaryKey?id='+row.id).then( res => {
           //删除结束再次调用查询方法，刷新table里面的值
           this.getData()
 
@@ -208,7 +208,7 @@
         })
       },
       getData() {
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/billtype/list').then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/list').then( res => {
           console.log(res.data)
           this.tableData5=res.data
         }).catch(err => {
@@ -219,7 +219,7 @@
         this.dialogFormVisible=false;
         this.$ajax({
           method:"post",
-          url: "http://129.204.21.11:9080/springboot-vue/billtype/updateByPrimaryKey",
+          url: "http://localhost:9080/springboot-vue/billtype/updateByPrimaryKey",
           data: {
             record: JSON.stringify(this.form)
           }
@@ -234,7 +234,7 @@
         this.dialogAddFormVisible=false;
         this.$ajax({
           method:"post",
-          url: "http://129.204.21.11:9080/springboot-vue/billtype/insert",
+          url: "http://localhost:9080/springboot-vue/billtype/insert",
           data: {
             record: JSON.stringify(this.addform)
           }

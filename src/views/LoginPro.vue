@@ -78,7 +78,7 @@
           }, 2000);
            let user= this.ruleForm2.user;
            let password=this.ruleForm2.pass;
-           this.$ajax.get('http://129.204.21.11:9080/springboot-vue/login?username='+user+"&&password="+password).then( res => {
+           this.$ajax.get('http://localhost:9080/springboot-vue/login?username='+user+"&&password="+password).then( res => {
               if(res.data=="登录失败！"){
                 this.$message({
                   message: '登录失败，用户名或密码错误',

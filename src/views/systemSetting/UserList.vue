@@ -174,7 +174,7 @@
       }
     },
     mounted() {
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/getUserList').then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/getUserList').then( res => {
           console.log(res.data)
           this.tableData5=res.data;
           this.totalDataCount=res.data.length;
@@ -200,7 +200,7 @@
 
       },
       handleDelete(index,row){
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/deleteUser?userid='+row.userId).then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/deleteUser?userid='+row.userId).then( res => {
           //删除结束再次调用查询方法，刷新table里面的值
           this.getData()
 
@@ -209,7 +209,7 @@
         })
       },
       getData() {
-        this.$ajax.get('http://129.204.21.11:9080/springboot-vue/getUserList').then( res => {
+        this.$ajax.get('http://localhost:9080/springboot-vue/getUserList').then( res => {
           console.log(res.data)
           this.tableData5=res.data
         }).catch(err => {
@@ -220,7 +220,7 @@
         this.dialogFormVisible=false;
         this.$ajax({
           method:"post",
-          url: "http://129.204.21.11:9080/springboot-vue/updateUser",
+          url: "http://localhost:9080/springboot-vue/updateUser",
           data: {
             user: JSON.stringify(this.form)
           }
@@ -234,7 +234,7 @@
         this.dialogAddFormVisible=false;
         this.$ajax({
           method:"post",
-          url: "http://129.204.21.11:9080/springboot-vue/addUser",
+          url: "http://localhost:9080/springboot-vue/addUser",
           data: {
             user: JSON.stringify(this.addform)
           }
