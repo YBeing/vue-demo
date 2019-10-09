@@ -1,5 +1,8 @@
 <template>
     <el-container class="mybody">
+      <audio autoplay="autoplay">
+        <source src="../assets/images/开不了口_周杰伦_128K.mp3" type="audio/mpeg">
+      </audio>
       <el-form ref="ruleForm3" :model="ruleForm2" status-icon :rules="rules2"  label-width="100px" class="demo-ruleForm" size="mini">
         <el-form-item  label="账号" prop="user" class="a1">
           <el-input v-model="ruleForm2.user" ></el-input>
@@ -128,7 +131,8 @@
   .mybody{
     width: 100%;
     height: 864px;
-    background: url("../assets/images/beverage-blurred-background-breakfast-2410571.jpg");
+    /*background: url("../assets/images/beverage-blurred-background-breakfast-2410571.jpg");*/
+    background: url("../assets/images/1024225.png");
 
   }
   .myloginbox {

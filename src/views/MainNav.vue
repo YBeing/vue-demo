@@ -1,5 +1,8 @@
 <template>
     <div>
+      <audio autoplay="autoplay">
+        <source src="../assets/images/一路向北.mp3" type="audio/mpeg">
+      </audio>
       <el-container>
         <el-header >
           <el-menu   class="el-menu-demo" mode="horizontal" >
