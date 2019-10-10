@@ -36,9 +36,11 @@
                     <el-menu-item-group>
                       <el-menu-item index="3-1" @click="addTab('电子票据种类管理')" >电子票据种类管理</el-menu-item>
                     </el-menu-item-group>
-                    <el-menu-item index="3-2" @click="addTab('执收项目管理')">执收项目管理</el-menu-item>
+                  <el-menu-item-group>
+
+                  <el-menu-item index="3-2" @click="addTab('执收项目管理')">执收项目管理</el-menu-item>
                     </el-menu-item-group>
-                  </el-menu-item-group>
+                  <el-menu-item-group>
                     <el-menu-item index="3-2" @click="addTab('电子票据模板管理')">电子票据模板管理</el-menu-item>
                     </el-menu-item-group>
 
@@ -48,10 +50,28 @@
                   <i class="el-icon-menu"></i>
                   <span slot="title">商户管理</span>
                 </el-menu-item>
-                <el-menu-item index="4">
+                <!--<el-menu-item index="4">
                   <i class="el-icon-location"></i>
                   <span slot="title">库存管理</span>
-                </el-menu-item>
+                </el-menu-item>-->
+
+                <el-submenu index="4">
+                  <template slot="title">
+                    <i class="el-icon-document"></i>
+                    <span>库存管理</span>
+                  </template>
+                  <el-menu-item-group>
+                    <el-menu-item index="4-1" @click="addTab('电子票据库存管理')" >电子票据库存管理</el-menu-item>
+                  </el-menu-item-group>
+                  <el-menu-item-group>
+                  <el-menu-item index="4-2" @click="addTab('电子票据库存查询')">电子票据库存查询</el-menu-item>
+                  </el-menu-item-group>
+
+
+                </el-submenu>
+
+
+
                 <el-submenu index="1">
                   <template slot="title">
                     <i class="el-icon-setting"></i>
@@ -105,6 +125,8 @@
     import BillType from  './billManager/BillType'
     import ChargeItem from  './billManager/ChargeItem'
     import Model from  './billManager/Model'
+    import BillStock from  './billStockManage/BillStock'
+    import BillStockQuery from './billStockManage/BillStockQuery'
     export default {
         name: "MainNav",
         components:{
@@ -151,6 +173,12 @@
             }
             if(name=="电子票据模板管理"){
               component=Model;
+            }
+            if(name=="电子票据库存查询"){
+              component=BillStockQuery;
+            }
+            if(name=="电子票据库存管理"){
+              component=BillStock;
             }
 
             let tabs = this.editableTabs2;
