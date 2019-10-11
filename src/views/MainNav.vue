@@ -11,7 +11,6 @@
               <el-menu-item index="2-2">登录状态</el-menu-item>
               <el-menu-item index="2-3">用户信息</el-menu-item>
             </el-submenu>
-<!--            <el-menu-item index="3" ><a class="el-icon-message">消息中心</a></el-menu-item>-->
 
             <el-menu-item  index="1" @click="dialogVisible = true"><a class="el-icon-phone-outline">注销</a></el-menu-item>
 
@@ -50,11 +49,6 @@
                   <i class="el-icon-menu"></i>
                   <span slot="title">商户管理</span>
                 </el-menu-item>
-                <!--<el-menu-item index="4">
-                  <i class="el-icon-location"></i>
-                  <span slot="title">库存管理</span>
-                </el-menu-item>-->
-
                 <el-submenu index="4">
                   <template slot="title">
                     <i class="el-icon-document"></i>
@@ -62,9 +56,6 @@
                   </template>
                   <el-menu-item-group>
                     <el-menu-item index="4-1" @click="addTab('电子票据库存管理')" >电子票据库存管理</el-menu-item>
-                  </el-menu-item-group>
-                  <el-menu-item-group>
-                  <el-menu-item index="4-2" @click="addTab('电子票据库存查询')">电子票据库存查询</el-menu-item>
                   </el-menu-item-group>
 
 
@@ -126,7 +117,6 @@
     import ChargeItem from  './billManager/ChargeItem'
     import Model from  './billManager/Model'
     import BillStock from  './billStockManage/BillStock'
-    import BillStockQuery from './billStockManage/BillStockQuery'
     export default {
         name: "MainNav",
         components:{
@@ -173,9 +163,6 @@
             }
             if(name=="电子票据模板管理"){
               component=Model;
-            }
-            if(name=="电子票据库存查询"){
-              component=BillStockQuery;
             }
             if(name=="电子票据库存管理"){
               component=BillStock;

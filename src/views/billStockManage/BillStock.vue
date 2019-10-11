@@ -13,7 +13,7 @@
             <el-input v-model="formInline.bitycode" placeholder="票据种类编码"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
+            <el-button type="primary" @click="onsearch">查询</el-button>
             <el-button type="warning" @click="addChargeitem">新增库存</el-button>
           </el-form-item>
         </el-form>
@@ -224,6 +224,22 @@
       },
       handleCurrentChange(val) {
         this.currentPage=val;
+      },
+      onsearch(){
+        this.$ajax({
+          method:"post",
+          url: "http://localhost:9080/springboot-vue/stock/selectByConditions",
+          data: {
+            record: JSON.stringify(this.formInline)
+          }
+
+        }).then(resp => {
+          this.tableData5=resp.data
+
+          // console.log(resp.data);
+        }).catch(err => {
+          console.log('请求失败：'+err.status+','+err.statusText);
+        });
       }
 
     }
