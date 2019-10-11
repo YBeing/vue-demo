@@ -8,7 +8,7 @@
 
           <el-menu    class="el-menu-demo" mode="horizontal" style="height: 70px" >
             <el-menu-item style="padding-right: 80%">
-              <img src="../assets/images/电视机.png" height="65px"  >
+              <img src="../assets/images/重阳节.png" height="65px">
             </el-menu-item>
 
             <!--<el-submenu index="2" >
@@ -47,6 +47,15 @@
                   <el-menu-item-group>
                     <el-menu-item index="3-2" @click="addTab('电子票据模板管理')">电子票据模板管理</el-menu-item>
                     </el-menu-item-group>
+                  <el-menu-item-group>
+                    <el-menu-item index="3-3" @click="addTab('电子票据开具')">电子票据开具</el-menu-item>
+                    </el-menu-item-group>
+                  <el-menu-item-group>
+                    <el-menu-item index="3-4" @click="addTab('电子票据作废')">电子票据作废</el-menu-item>
+                  </el-menu-item-group>
+                  <el-menu-item-group>
+                    <el-menu-item index="3-5" @click="addTab('电子票据换开')">电子票据换开</el-menu-item>
+                  </el-menu-item-group>
 
                 </el-submenu>
 
@@ -129,7 +138,6 @@
     import ChargeItem from  './billManager/ChargeItem'
     import Model from  './billManager/Model'
     import BillStock from  './billStockManage/BillStock'
-    import Echarts from './Echarts'
     import Index from './Index'
     export default {
         name: "MainNav",
@@ -182,7 +190,6 @@
               component=BillStock;
             }
             if(name=="图表"){
-              component=Echarts;
             }
 
             let tabs = this.editableTabs2;
