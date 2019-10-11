@@ -7,9 +7,13 @@
         <el-header >
 
           <el-menu    class="el-menu-demo" mode="horizontal" style="height: 70px" >
-            <el-menu-item style="padding-right: 80%">
+            <el-menu-item style="padding-right: 60%">
               <img src="../assets/images/重阳节.png" height="65px">
+              <span style="font-family: 楷体; color: purple; font-size: 27px; padding-left: 20px">浙江省电子票据大数据系统</span>
+
             </el-menu-item>
+
+
 
             <!--<el-submenu index="2" >
               <template slot="title"  icon="el-icon-service" >admin</template>
