@@ -5,13 +5,18 @@
       </audio>
       <el-container>
         <el-header >
-          <el-menu   class="el-menu-demo" mode="horizontal" >
-            <el-submenu index="2" >
+
+          <el-menu    class="el-menu-demo" mode="horizontal" style="height: 70px" >
+            <el-menu-item style="padding-right: 80%">
+              <img src="../assets/images/电视机.png" height="65px"  >
+            </el-menu-item>
+
+            <!--<el-submenu index="2" >
               <template slot="title"  icon="el-icon-service" >admin</template>
               <el-menu-item index="2-2">登录状态</el-menu-item>
               <el-menu-item index="2-3">用户信息</el-menu-item>
-            </el-submenu>
-
+            </el-submenu>-->
+            <el-menu-item  index="2" @click="dialogVisible = true"><a class="el-icon-user-solid">用户</a></el-menu-item>
             <el-menu-item  index="1" @click="dialogVisible = true"><a class="el-icon-phone-outline">注销</a></el-menu-item>
 
           </el-menu>
@@ -45,13 +50,20 @@
 
                 </el-submenu>
 
-                <el-menu-item index="2">
-                  <i class="el-icon-menu"></i>
-                  <span slot="title">商户管理</span>
-                </el-menu-item>
+                <el-submenu index="2">
+                  <template slot="title">
+                    <i class="el-icon-shopping-cart-2"></i>
+                    <span>商户管理</span>
+                  </template>
+                  <el-menu-item-group>
+                    <el-menu-item index="2-1" @click="addTab('图表')" >图表</el-menu-item>
+                  </el-menu-item-group>
+                </el-submenu>
+
+
                 <el-submenu index="4">
                   <template slot="title">
-                    <i class="el-icon-document"></i>
+                    <i class="el-icon-house"></i>
                     <span>库存管理</span>
                   </template>
                   <el-menu-item-group>
@@ -117,6 +129,8 @@
     import ChargeItem from  './billManager/ChargeItem'
     import Model from  './billManager/Model'
     import BillStock from  './billStockManage/BillStock'
+    import Echarts from './Echarts'
+    import Index from './Index'
     export default {
         name: "MainNav",
         components:{
@@ -129,7 +143,7 @@
               {
                 title: '首页',
                 name: 'index',
-                content: Carousel
+                content: Index
               }
             ],
             activeName: "index",
@@ -166,6 +180,9 @@
             }
             if(name=="电子票据库存管理"){
               component=BillStock;
+            }
+            if(name=="图表"){
+              component=Echarts;
             }
 
             let tabs = this.editableTabs2;
@@ -234,7 +251,10 @@
     background: url("../assets/images/coast-island-mountain-2821285.jpg");
   }
   .el-menu-demo{
-    padding-left: 84%;
+    /*padding-left: 84%;*/
+    /*background-color: red;*/
+    /*background: url("../assets/images/background-cement-concrete-242236.jpg");*/
+
   }
   .el-icon-message{
     margin-right: 80px;

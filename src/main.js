@@ -7,9 +7,12 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App'
 
+import echarts from 'echarts'
+
 
 Vue.config.productionTip = false;
 Vue.prototype.$ajax=axios;
+Vue.prototype.$echarts=echarts;
 Vue.use(ElementUI);
 Vue.use(VueRouter);
 /* eslint-disable no-new */
