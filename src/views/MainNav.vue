@@ -139,6 +139,8 @@
     import Model from  './billManager/Model'
     import BillStock from  './billStockManage/BillStock'
     import Index from './Index'
+    import BillDeal from './billManager/BillDeal'
+
     export default {
         name: "MainNav",
         components:{
@@ -188,6 +190,9 @@
             }
             if(name=="电子票据库存管理"){
               component=BillStock;
+            }
+            if(name=="电子票据开具"){
+              component=BillDeal;
             }
             if(name=="图表"){
             }
