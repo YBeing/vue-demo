@@ -80,7 +80,15 @@
         <el-dialog title="新增电子票据模板" :visible.sync="dialogAddFormVisible" width="500px" >
           <el-form  ref="addform" :model="addform" class="el-userform" >
             <el-form-item label="票据种类编码" :label-width="formLabelWidth">
-              <el-input v-model="addform.bitycode" auto-complete="off" class="el-form-name"  @change="checkBitycodeisExits"></el-input>
+<!--              <el-input v-model="addform.bitycode" auto-complete="off" class="el-form-name"  @change="checkBitycodeisExits"></el-input>-->
+              <el-select size="medium" v-model="addform.bitycode" style="width: 200px"   placeholder="">
+                <el-option
+                  v-for="item in bitycodeList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="票样模板版本" :label-width="formLabelWidth">
               <el-input v-model="addform.modelversion" auto-complete="off" class="el-form-name"  ></el-input>
@@ -125,6 +133,7 @@
     data() {
 
       return {
+        bitycodeList: [],
         tableData5: [],
         dialogFormVisible: false,
         dialogAddFormVisible: false,
@@ -150,7 +159,8 @@
       }
     },
     mounted() {
-        this.$ajax.get('http://localhost:9080/springboot-vue/emodel/list').then( res => {
+      this.getBitycode();
+      this.$ajax.get('http://localhost:9080/springboot-vue/emodel/list').then( res => {
           console.log(res.data)
           this.tableData5=res.data;
           this.totalDataCount=res.data.length;
@@ -182,8 +192,10 @@
       },
       getData() {
         this.$ajax.get('http://localhost:9080/springboot-vue/emodel/list').then( res => {
-          console.log(res.data)
-          this.tableData5=res.data
+          console.log(res.data);
+          this.tableData5=res.data;
+          this.totalDataCount=res.data.length;
+
         }).catch(err => {
           console.log(err)
         })
@@ -247,7 +259,14 @@
         })
 
 
-      }
+      },
+      getBitycode(){
+        this.$ajax.get('http://localhost:9080/springboot-vue/billtype/getSelectBox').then( res => {
+          this.bitycodeList=res.data;
+        }).catch(err => {
+          console.log(err)
+        });
+      },
 
 
     }
