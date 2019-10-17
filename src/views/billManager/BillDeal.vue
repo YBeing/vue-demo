@@ -18,9 +18,17 @@
                     :value="item.value">
                   </el-option>
                 </el-select><br>
-              <span style="font-size: 17px; color: purple">交款人证件号</span><br>
+              <span style="font-size: 17px; color: purple">电子票据种类</span><br>
 <!--              <input type="text">-->
-                <el-input size="mini" v-model="idcard" placeholder=""></el-input>
+<!--                <el-input size="mini" v-model="idcard" placeholder=""></el-input>-->
+                <el-select size="mini" v-model="billcode" style="width: 200px"   placeholder="">
+                  <el-option
+                    v-for="item in bitycodeList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
 
               </div>
             </td>
@@ -236,7 +244,8 @@
           showflag3:false,
           showflag4:false,
           showflag5:false,
-          idcard:"",
+          billcode:"",
+          bitycodeList: [],
           payer :"",
           email :"",
           tel :"",
@@ -275,6 +284,7 @@
       },
       mounted:function () {
         this.getChargeitemAndUnit();
+        this.getBitycode();
 
       },
       methods:{
@@ -337,50 +347,21 @@
             console.log(err)
           });
         },
+        getBitycode(){
+          this.$ajax.get('http://localhost:9080/springboot-vue/billtype/getSelectBox').then( res => {
+            this.bitycodeList=res.data;
+          }).catch(err => {
+            console.log(err)
+          });
+        },
         makeBill(){
-         /* let record;
-          record.unitcode=this.unitcode==null ||this.unitcode==undefined ? "":record.unitcode;
-          record.chargeitemcode= this.chargeitemcode ==null ||this.chargeitemcode==undefined ? "":record.chargeitemcode;
-          record.idcard =this.idcard ==null ||this.idcard==undefined ? "":record.idcard;
-          record.payer=this.payer==null ||this.payer==undefined ? "":record.payer;
-          record.email=this.email  ==null ||this.email==undefined ? "":record.email;
-          record.tel=this.tel ==null ||this.tel==undefined ? "":record.tel;
-          record.payerType=this.payerType==null ||this.payerType==undefined ? "":record.payerType;
-          record.total=this.total==null ||this.total==undefined ? "":record.total;
-          record.RMB=this.RMB==null ||this.RMB==undefined ? "":record.RMB;
-          record.remark=this.remark==null ||this.remark==undefined ? "":record.remark;
-          record.chargeitemcode1 =this.chargeitemcode1==null ||this.chargeitemcode1==undefined ? "":record.chargeitemcode1;
-          record.chargeitemcode2 =this.chargeitemcode2==null ||this.chargeitemcode2==undefined ? "":record.chargeitemcode2;
-          record.chargeitemcode3 =this.chargeitemcode3==null ||this.chargeitemcode3==undefined ? "":record.chargeitemcode3;
-          record.chargeitemcode4 =this.chargeitemcode4==null ||this.chargeitemcode4==undefined ? "":record.chargeitemcode4;
-          record.chargeitemcode5 =this.chargeitemcode5==null ||this.chargeitemcode5==undefined ? "":record.chargeitemcode5;
-          record.unti1=this.unti1==null ||this.unti1==undefined ? "":record.unti1;
-          record.unti2=this.unti2==null ||this.unti2==undefined ? "":record.unti2;
-          record.unti3=this.unti3==null ||this.unti3==undefined ? "":record.unti3;
-          record.unti4=this.unti4==null ||this.unti4==undefined ? "":record.unti4;
-          record.unti5=this.unti5==null ||this.unti5==undefined ? "":record.unti5;
-          record.count1= this.count1==null ||this.count1==undefined ? "":record.count1;
-          record.count2= this.count2==null ||this.count2==undefined ? "":record.count2;
-          record.count3= this.count3==null ||this.count3==undefined ? "":record.count3;
-          record.count4= this.count4==null ||this.count4==undefined ? "":record.count4;
-          record.count5= this.count5==null ||this.count5==undefined ? "":record.count5;
-          record.price1= this.price1==null ||this.price1==undefined ? "":record.price1;
-          record.price2= this.price2==null ||this.price2==undefined ? "":record.price2;
-          record.price3= this.price3==null ||this.price3==undefined ? "":record.price3;
-          record.price4= this.price4==null ||this.price4==undefined ? "":record.price4;
-          record.price5= this.price5==null ||this.price5==undefined ? "":record.price5;
-          record.money1= this.money1==null ||this.money1==undefined ? "":record.money1;
-          record.money2= this.money2==null ||this.money2==undefined ? "":record.money2;
-          record.money3= this.money3==null ||this.money3==undefined ? "":record.money3;
-          record.money4= this.money4==null ||this.money4==undefined ? "":record.money4;
-          record.money5= this.money5==null ||this.money5==undefined ? "":record.money5;*/
           this.$ajax({
             method:"post",
             url: "http://localhost:9080/springboot-vue/zsbillinfo/makebill",
             data: {
               unitcode: this.unitcode,
               chargeitemcode:this.chargeitemcode,
-              idcard:this.idcard,
+              billcode:this.billcode,
               payer:this.payer,
               email:this.email,
               tel:this.tel,
